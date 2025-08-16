@@ -9,7 +9,7 @@ if uploaded_file is not None:
         file_bytes = np.asarray(bytearray(uploaded_file.read()),dtype=np.uint8)
         img = cv2.imdecode(file_bytes,1)
         gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-        fire = fire_cascade.detectMultiScale(img, 1.1, 5)
+        fire = fire_cascade.detectMultiScale(gray, 1.1, 5)
         for (x, y, w, h) in fire:
             cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 3)
         st.image(img,channels="BGR",caption="Detected Fire")
@@ -27,3 +27,4 @@ if uploaded_file is not None:
             for (x, y, w, h) in fire:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
             stframe.image(frame,channels="BGR")
+
