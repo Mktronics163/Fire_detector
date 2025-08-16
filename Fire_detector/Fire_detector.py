@@ -23,8 +23,16 @@ if uploaded_file is not None:
             if not _:
                 break
             gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-            fire = fire_cascade.detectMultiScale(gray,1.1,5)
+            if fire_cascade.empty():
+                st.error("Error while loading")
+                break
+            try:
+                 fire = fire_cascade.detectMultiScale(gray,1.1,5)
+            except Exception as e:
+                st.error(f"Detection error: {e}")
+                break
             for (x, y, w, h) in fire:
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
             stframe.image(frame,channels="BGR")
+
 
